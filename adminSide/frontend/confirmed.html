@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		
+		<title>Confirmed Order</title>
+		<link rel="stylesheet" href="css/styles.css">
+
+	</head>
+
+	<body class="receipt-body">
+        <div class="container">
+
+             <!--Navigation bar-->
+             <header class="navbar">
+                <div class="navhome">
+                    <a href="index.html"><img src="logos/coffee_logo.png" id="coffee-logo"></a>
+                    <a href="index.html"><h2>Northside Café</h2></a>
+                </div>
+                <div class="navlinks">
+                    <div class="adminlinks">
+                        <a href="settings.html"><img src="logos/settings.png"></a>
+                        <a href="report.html"><img src="logos/analytics.png"></a>
+                    </div>
+                    <div class="generallinks">
+                        <a href="transactions_admin.html"><img src="logos/print.png"></a>
+                        <a href="user.html"><img src="logos/user.png"></a>
+                    </div>
+                </div>
+            </header>
+
+
+            <div class="main-receipts">
+                <div class="receipt-box">
+                    <h1>Order Confirmed</h1>
+                    <div class="receipt-details">
+                        <h2 id="receipt-orderno"></h2>
+                        <div id="receipt-orderdetails"></div>
+                        <h2 id="receipt-orderamount"></h2>
+                    </div>
+                    <div class="receipt-print-option">
+                        <h>PRINT RECEIPT?</h>
+                        <hr>
+                        <div>
+                            <button class="receipt-button">YES</button>
+                            <button class="receipt-button">NO</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
+        
+        <!-- Script path -->
+        <script src="js/confirmation.js"></script>     
+        <script>
+            // Necessary functions
+            generateReceiptData();
+            calculateTotal();
+            placeOrder();
+        </script>
+    </body>
+</html>

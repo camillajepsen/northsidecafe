@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Shipping & Payment Details</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Shipping & Payment Details</h1>
+        <form id="shippingForm" action="order.php" method="POST">
+            <!-- Shipping Method -->
+            <label for="shippingMethod">Shipping Method:</label>
+            <select name="shippingMethod" id="shippingMethod">
+                <option value="pick up">Pick Up</option>
+                <option value="deliver">Deliver</option>
+            </select>
+
+            <!-- Shipping Time -->
+            <label for="shippingTime">Shipping Time:</label>
+            <input type="datetime-local" id="shippingTime" name="shippingTime" required>
+
+            <!-- Shipping Location -->
+            <label for="shippingLocation">Shipping Location:</label>
+            <input type="text" id="shippingLocation" name="shippingLocation" placeholder="Enter your location" required>
+
+            <!-- Hidden inputs for order details from Step 1 -->
+            <input type="hidden" name="orderNumber" id="orderNumber">
+            <input type="hidden" name="selectionName" id="selectionName">
+            <input type="hidden" name="size" id="size">
+            <input type="hidden" name="milk" id="milk">
+            <input type="hidden" name="takeaway" id="takeaway">
+            <input type="hidden" name="sugar" id="sugar">
+            <input type="hidden" name="cost" id="cost">
+
+            <!-- Hidden input for Order Status -->
+            <input type="hidden" name="orderStatus" value="Confirmed">
+
+            <!-- Submit button -->
+            <button type="submit">Submit Order</button>
+        </form>
+    </div>
+
+    <script>
+        // Retrieve query parameters from URL and set hidden form fields
+        function getParameterByName(name) {
+            const url = window.location.href;
+            const nameRegex = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        window.onload = function() {
+            // Populate the form with order details from Step 1
+            document.getElementById('orderNumber').value = getParameterByName('orderNumber');
+            document.getElementById('selectionName').value = getParameterByName('selectionName');
+            document.getElementById('size').value = getParameterByName('size');
+            document.getElementById('milk').value = getParameterByName('milk');
+            document.getElementById('takeaway').value = getParameterByName('takeaway');
+            document.getElementById('sugar').value = getParameterByName('sugar');
+            document.getElementById('cost').value = getParameterByName('cost');
+        };
+    </script>
+</body>
+
+</html>

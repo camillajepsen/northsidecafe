@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		
+		<title>Tea Menu</title>
+		<link rel="stylesheet" href="css/styles.css">
+
+	</head>
+
+	<body class="gradient-background">
+        <div class="container">
+
+            <!--Navigation bar-->
+            <header class="navbar">
+                <div class="navhome">
+                    <a href="index.html"><img src="logos/coffee_logo.png" id="coffee-logo"></a>
+                    <a href="index.html"><h2>Northside Café</h2></a>
+                </div>
+                <div class="navlinks">
+                    <div class="adminlinks">
+                        <a href="settings.html"><img src="logos/settings.png"></a>
+                        <a href="report.html"><img src="logos/analytics.png"></a>
+                    </div>
+                    <div class="generallinks">
+                        <a href="transactions_admin.html"><img src="logos/print.png"></a>
+                        <a href="user.html"><img src="logos/user.png"></a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="main">
+                    <!--Menu box-->
+                    <div class="menu-box">
+                        <div class="title-bar"><h1>TEA/CACAO</h1></div>
+                        <div class="menu-box-grid">
+                            <!-- Option buttons -->
+                            <button class="menu-box-item" onclick="sendImage(1)">
+                                <img src="images/blacktea.jpg" title="Black tea" id="img1">
+                                <h3 class="item-cost">Black Tea<br>$5.5</h3>
+                            </button>
+                            <button class="menu-box-item" onclick="sendImage(2)">
+                                <img src="images/herbaltea.jpg" title="Herbal tea" id="img2">
+                                <h3 class="item-cost">Herbal Tea<br>$4.5</h3>
+                            </button>
+                            <button class="menu-box-item" onclick="sendImage(3)">
+                                <img src="images/matcha.jpg" title="Matcha Tea" id="img3">
+                                <h3 class="item-cost">Matcha Tea<br>$6</h3>
+                            </button>
+                            <button class="menu-box-item" onclick="sendImage(4)">
+                                <img src="images/hotchocolate.jpg" title="Hot Chocolate" id="img4">
+                                <h3 class="item-cost">Hot Chocolate<br>$5.5</h3>
+                            </button>
+                        </div>
+                    </div>
+    
+                    <!--Order summary-->
+                    <div class="order-box">
+                        <div class="order-box-inner">
+                            <div class="order-number"></div>
+                            <hr>
+                            <div class="order-info"></div>
+                            <hr>
+                            <!--Payment method section with buttons-->
+                            <div class="payment-method">
+                                <h2>Payment method</h2>
+                                <div class="payment-options">
+                                    <button class="cash-option"><img src="logos/cash_icon.png"></button>
+                                    <button class="card-option"><img src="logos/card_icon.png"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Form for payment -->
+                        <form action="confirmed.html">
+                            <button class="order-button" id="order-button">Place order <img src="logos/arrow.png" id="order-arrow"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </body>
+    
+        <!-- Script path -->
+        <script src="js/cartUpdater.js"></script>
+
+        <!-- Script path -->
+        <script src="js/paymentMethod.js"></script>
+        <script>
+            // Necessary functions
+            updateCart();
+            enablePaymentUpdate();
+            updateColor();
+            function sendImage(imageNumber) {
+                const img = document.getElementById('img' + imageNumber);
+                const imgSrc = encodeURIComponent(img.src);
+                const h3 = img.nextElementSibling;
+                window.location.href = `customization_menu.html?imgSrc=${imgSrc}&title=${h3.innerHTML}`;
+            }
+        </script>
+    </html>

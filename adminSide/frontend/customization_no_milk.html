@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		
+		<title>Customization Menu - No Milk</title>
+		<link rel="stylesheet" href="css/styles.css">
+
+	</head>
+
+	<body class="gradient-background">
+        <div class="container">
+
+            <!--Navigation bar-->
+            <header class="navbar">
+                <div class="navhome">
+                    <a href="index.html"><img src="logos/coffee_logo.png" id="coffee-logo"></a>
+                    <a href="index.html"><h2>Northside Café</h2></a>
+                </div>
+                <div class="navlinks">
+                    <div class="adminlinks">
+                        <a href="settings.html"><img src="logos/settings.png"></a>
+                        <a href="report.html"><img src="logos/analytics.png"></a>
+                    </div>
+                    <div class="generallinks">
+                        <a href="transactions_admin.html"><img src="logos/print.png"></a>
+                        <a href="user.html"><img src="logos/user.png"></a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="main">
+
+                <!--Menu box-->
+                <div class="custom-menu">
+                    <div class="customization-title">
+                        <h1>SELECT/CUSTOMIZE</h1>
+                    </div>
+                    <div class="menu-container-no-milk">
+                        <div class="size-menu-no-milk">
+                            <!-- Showing image of selected beverage: -->
+                            <div class="selection-item-box-no-milk">
+                                <img id="selection-img" alt="selection-img">
+                                <h3></h3>
+                            </div>
+                            
+                            <!-- Buttons for selection -->
+                            <button class="size-button-no-milk" id="small" onclick="setSize('small')">Small</button>
+                            <button class="size-button-no-milk" id="large" onclick="setSize('large')">Large +$1</button>
+                            <div class="add-on-div-no-milk">
+                                <label class="add-on-option">
+                                <input type="checkbox" id="takeaway"> Takeaway
+                                </label>
+                                <button id="add_button_no_milk" onclick="addToCart()" style="margin-top: 20px;">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Order summary-->
+                <div class="order-box">
+                    <div class="order-box-inner">
+                        <div class="order-number"></div>
+                        <hr>
+                        <div class="order-info"></div>
+                        <hr>
+                        <!--Payment method section with buttons-->
+                        <div class="payment-method">
+                            <h2>Payment method</h2>
+                            <div class="payment-options">
+                                <button class="cash-option"><img src="logos/cash_icon.png"></button>
+                                <button class="card-option"><img src="logos/card_icon.png"></button>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Form for payment -->
+                     <form action="confirmed.html">
+                        <button class="order-button" id="order-button">Place order <img src="logos/arrow.png" id="order-arrow"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <!-- Script path -->
+    <script src="js/cartUpdater.js"></script>
+
+    <!-- Script path -->
+    <script src="js/paymentMethod.js"></script>
+    <script>
+        // Helpful functions
+        updateCart();
+        enablePaymentUpdate();
+        updateColor();
+
+        let selectionImg, selectionPrice = 0, selectionName = '';
+        let size = '';
+
+        const smallBtn = document.getElementById('small');
+        const largeBtn = document.getElementById('large');
+        const sizeButtons = [smallBtn, largeBtn];
+
+
+        function changeSizeBtnColor() {
+            sizeButtons.forEach(button => {
+                if (button.id === size) {
+                    button.style.backgroundColor = '#424645'; 
+                    button.style.color = '#ffffff';
+                } else {
+                    button.style.backgroundColor = '#f7e4d0';
+                    button.style.color = '#000000';
+                }
+            });
+        }
+
+        function setSize(sizeOption) {
+            size = sizeOption;
+            changeSizeBtnColor();
+        }
+
+
+        function addToCart() {
+            // Persisting cart functionality with localStorage
+            let orderDetails = {};
+            const takeawayCheckbox = document.getElementById('takeaway');
+            orderDetails.takeaway = takeawayCheckbox.checked;
+            orderDetails.takeawayText = orderDetails.takeaway ? 'Takeaway' : 'Dine in';
+            orderDetails.cost = size === 'large' ? selectionPrice + 1 : selectionPrice;
+            orderDetails.size = size;
+            orderDetails.imgSrc = selectionImg;
+            orderDetails.name = selectionName;
+            let itemList = JSON.parse(localStorage.getItem("cart"))
+            itemList = itemList ? itemList : [];
+            orderDetails.no = itemList.length + 1;
+            itemList.push(orderDetails)
+            localStorage.setItem("cart", JSON.stringify(itemList)); 
+            updateCart();
+        }
+
+        function getParameterByName(name) {
+            const url = window.location.href;
+            const nameRegex = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        window.onload = function() {
+            const imgSrc = getParameterByName('imgSrc');
+            if (imgSrc) {
+                const img = document.getElementById('selection-img');
+                img.src = imgSrc;
+                selectionImg = img.src;
+
+                const next = img.nextElementSibling;
+                next.innerHTML = selectionDetails = getParameterByName('title');
+                selectionName = selectionDetails.split('<br>')[0];
+                selectionPrice = parseFloat(selectionDetails.split('$')[1]);
+            }
+        };
+
+        setSize('small');
+
+    </script>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		
+		<title>Generate Reports</title>
+		<link rel="stylesheet" href="css/styles.css">
+        <script>js/script.js</script>
+
+	</head>
+
+	<body class="grey-background">
+
+
+            <!--Navigation bar-->
+            <header class="navbar">
+                <div class="navhome">
+                    <a href="index.html"><img src="logos/coffee_logo.png" id="coffee-logo"></a>
+                    <a href="index.html"><h2>Northside Café</h2></a>
+                </div>
+                <div class="navlinks">
+                    <div class="adminlinks">
+                        <a href="settings.html"><img src="logos/settings.png"></a>
+                        <a href="report.html"><img src="logos/analytics.png"></a>
+                    </div>
+                    <div class="generallinks">
+                        <a href="transactions_admin.html"><img src="logos/print.png"></a>
+                        <a href="user.html"><img src="logos/user.png"></a>
+                    </div>
+                </div>
+            </header>
+
+
+            <div class="container">
+                <div class="report-header">
+                    <h1>GENERATE REPORTS</h1>
+                </div>
+
+                <div class="report-summary">
+                    <div class="date">
+                        <p id="todaydate"></p>
+                    </div>
+                    <p>TOTAL SALES<br><span class="needsbackend">$0</span></p>
+                    <p>TOTAL TRANSACTIONS<br><span class="needsbackend">0</span></p>
+                </div>
+
+                <div class="report-filter">
+                    <div class="form-group">
+                        <label for="staffselection">STAFF MEMBER</label>
+                        <select id="staffselection" name="staffselection">
+                            <option value="all">ALL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startdate">START DATE:</label>
+                        <input type="date" id="startdate" name="startdate">
+                    </div>
+                    <div class="form-group">
+                        <label for="enddate">END DATE:</label>
+                        <input type="date" id="enddate" name="enddate">
+                    </div>
+                    <div class="form-group">
+                        <img src="logos/printer_beige.png" id="printer-logo">
+                    </div>
+                </div>
+
+
+                <div class="report-container">
+
+                    <div class="report-graph"></div>
+
+                    <div class="report-content">
+                        
+                        <h1>SALES</h1>
+                        
+                        <div class="filter-info">
+                            <h2>STAFF: <span id="staff-output">ALL STAFF</span></h2><hr>
+                            <h2>PERIOD: <span id="startdate-output">STARTDATE</span> TO <span id="enddate-output">ENDDATE</span></h2>
+                        </div>
+
+                        <div class="report-transactions">
+                            <table>
+                                <tr>
+                                    <th>DATE</th>
+                                    <th>ITEM</th>
+                                    <th>COST</th>
+                                </tr>
+                                <tr>
+                                    <td class="needsbackend"></td>
+                                    <td class="needsbackend"></td>
+                                    <td class="needsbackend"></td>
+                                </tr>
+    
+                            </table>
+    
+                        </div>
+                    </div>
+
+                </div>
+            
+
+        </div>
+        
+    </body>
+
+    <script>
+
+        //Script for displaying today's date:
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the current date
+            const today = new Date();
+            
+            // Format the date (you can customize the format as needed)
+            const formattedDate = today.toLocaleDateString('en-GB', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+            
+            // Set the date in the element with id 'todaydate'
+            document.getElementById('todaydate').textContent = `${formattedDate}`;
+        });
+
+
+        //Script for displaying user input: 
+
+        document.addEventListener("DOMContentLoaded", function () {
+        // Obtaining elements:
+        const staffSelection = document.getElementById("staffselection");
+        const startDateInput = document.getElementById("startdate");
+        const endDateInput = document.getElementById("enddate");
+
+        const staffOutput = document.getElementById("staff-output");
+        const startDateOutput = document.getElementById("startdate-output");
+        const endDateOutput = document.getElementById("enddate-output");
+
+        // Updating display:
+        function updateReportInfo() {
+            const staffValue = staffSelection.value;
+            const startDateValue = startDateInput.value;
+            const endDateValue = endDateInput.value;
+
+            // Updating text:
+            staffOutput.textContent = staffValue !== "all" ? staffValue : "ALL STAFF";
+            startDateOutput.textContent = startDateValue ? new Date(startDateValue).toLocaleDateString() : "START DATE";
+            endDateOutput.textContent = endDateValue ? new Date(endDateValue).toLocaleDateString() : "END DATE";
+        }
+
+        // Attach event listeners
+        staffSelection.addEventListener("change", updateReportInfo);
+        startDateInput.addEventListener("change", updateReportInfo);
+        endDateInput.addEventListener("change", updateReportInfo);
+    });
+    </script>
+</html>
