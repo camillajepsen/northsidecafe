@@ -1,4 +1,3 @@
-
 # Use the official PHP image
 FROM php:7.4-apache
 
@@ -8,5 +7,11 @@ COPY . /var/www/html/
 # Set permissions (optional, but may be needed)
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose the port on which the app will run
-EXPOSE 80
+# Change the Apache configuration to use the PORT environment variable
+RUN sed -i 's/Listen 80/Listen ${PORT}/' /etc/apache2/ports.conf
+
+# Expose the dynamic port
+EXPOSE ${PORT}
+
+# Start Apache in the foreground
+CMD ["apache2-foreground"]
