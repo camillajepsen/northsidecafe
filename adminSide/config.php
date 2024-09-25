@@ -1,5 +1,5 @@
 // Define database connection constants
-define('DB_HOST', 'your-aws-endpoint');  
+define('DB_HOST', 'cafe.czm0q4sccu05.ap-southeast-2.rds.amazonaws.com');  
 define('DB_USER', 'admin');  
 define('DB_PASS', 'Northsidecafekent2024'); 
 define('DB_NAME', 'cafe');  
